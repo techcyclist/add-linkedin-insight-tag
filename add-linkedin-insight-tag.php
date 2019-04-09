@@ -123,19 +123,21 @@ function alit_options_page(  ) {
 
 function alit_linkedin_insight_tag_code() {
     $options = get_option( 'alit_settings' );
-    echo '<script type="text/javascript">';
-    echo '_linkedin_partner_id = "'.$options['alit_linkedin_insight_tag'].'";';
-    echo 'window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];';
-    echo 'window._linkedin_data_partner_ids.push(_linkedin_partner_id);';
-    echo '</script><script type="text/javascript">';
-    echo '(function(){var s = document.getElementsByTagName("script")[0];';
-    echo 'var b = document.createElement("script");';
-    echo 'b.type = "text/javascript";b.async = true;';
-    echo 'b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";';
-    echo 's.parentNode.insertBefore(b, s);})();';
-    echo '</script>';
-    echo '<noscript>';
-    echo '<img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid='.$options['alit_linkedin_insight_tag'].'&fmt=gif" />';
-    echo '</noscript>;';
+    if (isset($options['alit_linkedin_insight_tag'])){
+        echo '<script type="text/javascript">';
+        echo '_linkedin_partner_id = "'.$options['alit_linkedin_insight_tag'].'";';
+        echo 'window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];';
+        echo 'window._linkedin_data_partner_ids.push(_linkedin_partner_id);';
+        echo '</script><script type="text/javascript">';
+        echo '(function(){var s = document.getElementsByTagName("script")[0];';
+        echo 'var b = document.createElement("script");';
+        echo 'b.type = "text/javascript";b.async = true;';
+        echo 'b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";';
+        echo 's.parentNode.insertBefore(b, s);})();';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid='.$options['alit_linkedin_insight_tag'].'&fmt=gif" />';
+        echo '</noscript>;';
+    }
 }
 add_action('wp_footer', 'alit_linkedin_insight_tag_code');
